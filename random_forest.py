@@ -15,75 +15,75 @@ variable_feature_random_cell = pd.read_csv('variable_features_subset.tsv', delim
 metadata_metacell = pd.read_csv('svm_metadata_with_labels.tsv', delimiter='\t')
 variable_feature_metacell = pd.read_csv('metacell_data_var_features.tsv', delimiter='\t')
 
-# def run_random_forest(data, title=''):
-#     print('Running Random forest on ', title)
-#     #split
-#     X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='disease_state'),
-#                                                         data.disease_state,
-#                                                         test_size=0.2,
-#                                                         random_state=0)
+def run_random_forest(data, title=''):
+    print('Running Random forest on ', title)
+    #split
+    X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='disease_state'),
+                                                        data.disease_state,
+                                                        test_size=0.2,
+                                                        random_state=0)
 
-#     #parameter tuning
-#     parameters = {'n_estimators': randint(low=50, high=500),
-#                 'min_samples_split': randint(low=2, high=10),
-#                 'min_samples_leaf': randint(low=1, high=10),
-#                 'max_features': randint(low=2, high=8)}
+    #parameter tuning
+    parameters = {'n_estimators': randint(low=50, high=500),
+                'min_samples_split': randint(low=2, high=10),
+                'min_samples_leaf': randint(low=1, high=10),
+                'max_features': randint(low=2, high=8)}
 
-#     rf = RandomForestClassifier()
-#     clf = RandomizedSearchCV(rf, parameters, n_iter=50)
-#     clf.fit(X_train, y_train)
+    rf = RandomForestClassifier()
+    clf = RandomizedSearchCV(rf, parameters, n_iter=50)
+    clf.fit(X_train, y_train)
 
-#     print("Best Estimator:", clf.best_estimator_)
-#     print("Train Accuracy:", clf.best_score_)
+    print("Best Estimator:", clf.best_estimator_)
+    print("Train Accuracy:", clf.best_score_)
 
-#     #predict
-#     preds = clf.best_estimator_.predict(X_test)
-#     print("Test Accuracy:", accuracy_score(y_test, preds))
-#     print("Test F1 score:", f1_score(y_test, preds, average='weighted'))
-#     print('\n\n')
-
-
-# run_random_forest(data=variable_feature_random_cell, title='variable_feature - random_cell')
-# run_random_forest(data=metadata_metacell, title='metadata - metacell')
-# run_random_forest(data=variable_feature_metacell, title='variable_feature - metacell')
+    #predict
+    preds = clf.best_estimator_.predict(X_test)
+    print("Test Accuracy:", accuracy_score(y_test, preds))
+    print("Test F1 score:", f1_score(y_test, preds, average='weighted'))
+    print('\n\n')
 
 
-#BINARY CLASS
-# variable_feature_random_cell['disease_state'] = np.where(variable_feature_random_cell['disease_state'] == 0, 0, 1)
-# metadata_metacell['disease_state'] =  np.where(metadata_metacell['disease_state'] == 0, 0, 1)
-# variable_feature_metacell['disease_state'] =  np.where(variable_feature_metacell['disease_state'] == 0, 0, 1)
-
-# def run_random_forest_binary(data, title=''):
-#     print('Running Random forest Binary classification on ', title)
-#     #split
-#     X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='disease_state'),
-#                                                         data.disease_state,
-#                                                         test_size=0.2,
-#                                                         random_state=0)
-
-#     #parameter tuning
-#     parameters = {'n_estimators': randint(low=50, high=500),
-#                 'min_samples_split': randint(low=2, high=10),
-#                 'min_samples_leaf': randint(low=1, high=10),
-#                 'max_features': randint(low=2, high=8)}
-
-#     rf = RandomForestClassifier()
-#     clf = RandomizedSearchCV(rf, parameters, n_iter=50)
-#     clf.fit(X_train, y_train)
-
-#     print("Best Estimator:", clf.best_estimator_)
-#     print("Train Accuracy:", clf.best_score_)
-
-#     #predict
-#     preds = clf.best_estimator_.predict(X_test)
-#     print("Test Accuracy:", accuracy_score(y_test, preds))
-#     print("Test F1 score:", f1_score(y_test, preds, average='weighted'))
-#     print('\n\n')
+run_random_forest(data=variable_feature_random_cell, title='variable_feature - random_cell')
+run_random_forest(data=metadata_metacell, title='metadata - metacell')
+run_random_forest(data=variable_feature_metacell, title='variable_feature - metacell')
 
 
-# run_random_forest_binary(data=variable_feature_random_cell, title='variable_feature - random_cell')
-# run_random_forest_binary(data=metadata_metacell, title='metadata - metacell')
-# run_random_forest_binary(data=variable_feature_metacell, title='variable_feature - metacell')
+BINARY CLASS
+variable_feature_random_cell['disease_state'] = np.where(variable_feature_random_cell['disease_state'] == 0, 0, 1)
+metadata_metacell['disease_state'] =  np.where(metadata_metacell['disease_state'] == 0, 0, 1)
+variable_feature_metacell['disease_state'] =  np.where(variable_feature_metacell['disease_state'] == 0, 0, 1)
+
+def run_random_forest_binary(data, title=''):
+    print('Running Random forest Binary classification on ', title)
+    #split
+    X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='disease_state'),
+                                                        data.disease_state,
+                                                        test_size=0.2,
+                                                        random_state=0)
+
+    #parameter tuning
+    parameters = {'n_estimators': randint(low=50, high=500),
+                'min_samples_split': randint(low=2, high=10),
+                'min_samples_leaf': randint(low=1, high=10),
+                'max_features': randint(low=2, high=8)}
+
+    rf = RandomForestClassifier()
+    clf = RandomizedSearchCV(rf, parameters, n_iter=50)
+    clf.fit(X_train, y_train)
+
+    print("Best Estimator:", clf.best_estimator_)
+    print("Train Accuracy:", clf.best_score_)
+
+    #predict
+    preds = clf.best_estimator_.predict(X_test)
+    print("Test Accuracy:", accuracy_score(y_test, preds))
+    print("Test F1 score:", f1_score(y_test, preds, average='weighted'))
+    print('\n\n')
+
+
+run_random_forest_binary(data=variable_feature_random_cell, title='variable_feature - random_cell')
+run_random_forest_binary(data=metadata_metacell, title='metadata - metacell')
+run_random_forest_binary(data=variable_feature_metacell, title='variable_feature - metacell')
 
 
 #CELL TYPE CLASSIFICATION
