@@ -14,75 +14,75 @@ variable_feature_random_cell = pd.read_csv('variable_features_subset.tsv', delim
 metadata_metacell = pd.read_csv('svm_metadata_with_labels.tsv', delimiter='\t')
 variable_feature_metacell = pd.read_csv('metacell_data_var_features.tsv', delimiter='\t')
 
-# def run_decision_tree(data, title=''):
-#     print('Running Decision tree on ', title)
-#     #split
-#     X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='disease_state'),
-#                                                         data.disease_state,
-#                                                         test_size=0.2,
-#                                                         random_state=0)
+def run_decision_tree(data, title=''):
+    print('Running Decision tree on ', title)
+    #split
+    X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='disease_state'),
+                                                        data.disease_state,
+                                                        test_size=0.2,
+                                                        random_state=0)
 
-#     #parameter tuning
-#     parameters = {'criterion':('gini', 'entropy'),
-#                 'max_depth': [3, 5, 10, 25],
-#                 'min_samples_split': [2, 4, 6, 10],
-#                 'min_impurity_decrease': [0, 0.1, 0.15]}
+    #parameter tuning
+    parameters = {'criterion':('gini', 'entropy'),
+                'max_depth': [3, 5, 10, 25],
+                'min_samples_split': [2, 4, 6, 10],
+                'min_impurity_decrease': [0, 0.1, 0.15]}
 
-#     dt = DecisionTreeClassifier()
-#     clf = GridSearchCV(dt, parameters)
-#     clf.fit(X_train, y_train)
+    dt = DecisionTreeClassifier()
+    clf = GridSearchCV(dt, parameters)
+    clf.fit(X_train, y_train)
 
-#     print("Best Estimator:", clf.best_estimator_)
-#     print("Train Accuracy:", clf.best_score_)
+    print("Best Estimator:", clf.best_estimator_)
+    print("Train Accuracy:", clf.best_score_)
 
-#     #predict
-#     preds = clf.best_estimator_.predict(X_test)
-#     print("Test Accuracy:", accuracy_score(y_test, preds))
-#     print("Test F1 score:", f1_score(y_test, preds, average='weighted'))
-#     print('\n\n')
-
-
-# run_decision_tree(data=variable_feature_random_cell, title='variable_feature - random_cell')
-# run_decision_tree(data=metadata_metacell, title='metadata - metacell')
-# run_decision_tree(data=variable_feature_metacell, title='variable_feature - metacell')
+    #predict
+    preds = clf.best_estimator_.predict(X_test)
+    print("Test Accuracy:", accuracy_score(y_test, preds))
+    print("Test F1 score:", f1_score(y_test, preds, average='weighted'))
+    print('\n\n')
 
 
-#BINARY CLASS
-# variable_feature_random_cell['disease_state'] = np.where(variable_feature_random_cell['disease_state'] == 0, 0, 1)
-# metadata_metacell['disease_state'] =  np.where(metadata_metacell['disease_state'] == 0, 0, 1)
-# variable_feature_metacell['disease_state'] =  np.where(variable_feature_metacell['disease_state'] == 0, 0, 1)
-
-# def run_decision_tree_binary(data, title=''):
-#     print('Running Decision tree binary classification on ', title)
-#     #split
-#     X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='disease_state'),
-#                                                         data.disease_state,
-#                                                         test_size=0.2,
-#                                                         random_state=0)
-
-#     #parameter tuning
-#     parameters = {'criterion':('gini', 'entropy'),
-#                 'max_depth': [3, 5, 10, 25],
-#                 'min_samples_split': [2, 4, 6, 10],
-#                 'min_impurity_decrease': [0, 0.1, 0.15]}
-
-#     dt = DecisionTreeClassifier()
-#     clf = GridSearchCV(dt, parameters)
-#     clf.fit(X_train, y_train)
-
-#     print("Best Estimator:", clf.best_estimator_)
-#     print("Train Accuracy:", clf.best_score_)
-
-#     #predict
-#     preds = clf.best_estimator_.predict(X_test)
-#     print("Test Accuracy:", accuracy_score(y_test, preds))
-#     print("Test F1 score:", f1_score(y_test, preds, average='weighted'))
-#     print('\n\n')
+run_decision_tree(data=variable_feature_random_cell, title='variable_feature - random_cell')
+run_decision_tree(data=metadata_metacell, title='metadata - metacell')
+run_decision_tree(data=variable_feature_metacell, title='variable_feature - metacell')
 
 
-# run_decision_tree_binary(data=variable_feature_random_cell, title='variable_feature - random_cell')
-# run_decision_tree_binary(data=metadata_metacell, title='metadata - metacell')
-# run_decision_tree_binary(data=variable_feature_metacell, title='variable_feature - metacell')
+BINARY CLASS
+variable_feature_random_cell['disease_state'] = np.where(variable_feature_random_cell['disease_state'] == 0, 0, 1)
+metadata_metacell['disease_state'] =  np.where(metadata_metacell['disease_state'] == 0, 0, 1)
+variable_feature_metacell['disease_state'] =  np.where(variable_feature_metacell['disease_state'] == 0, 0, 1)
+
+def run_decision_tree_binary(data, title=''):
+    print('Running Decision tree binary classification on ', title)
+    #split
+    X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='disease_state'),
+                                                        data.disease_state,
+                                                        test_size=0.2,
+                                                        random_state=0)
+
+    #parameter tuning
+    parameters = {'criterion':('gini', 'entropy'),
+                'max_depth': [3, 5, 10, 25],
+                'min_samples_split': [2, 4, 6, 10],
+                'min_impurity_decrease': [0, 0.1, 0.15]}
+
+    dt = DecisionTreeClassifier()
+    clf = GridSearchCV(dt, parameters)
+    clf.fit(X_train, y_train)
+
+    print("Best Estimator:", clf.best_estimator_)
+    print("Train Accuracy:", clf.best_score_)
+
+    #predict
+    preds = clf.best_estimator_.predict(X_test)
+    print("Test Accuracy:", accuracy_score(y_test, preds))
+    print("Test F1 score:", f1_score(y_test, preds, average='weighted'))
+    print('\n\n')
+
+
+run_decision_tree_binary(data=variable_feature_random_cell, title='variable_feature - random_cell')
+run_decision_tree_binary(data=metadata_metacell, title='metadata - metacell')
+run_decision_tree_binary(data=variable_feature_metacell, title='variable_feature - metacell')
 
 
 #CELL TYPE CLASSIFICATION
